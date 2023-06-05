@@ -1,11 +1,14 @@
-import { NavigationContainer } from '@react-navigation/native';
-import React from 'react';
-import StackNavigator from './StackNavigator';
+import { NavigationContainer } from "@react-navigation/native";
+import React from "react";
+import { StackNavigator } from "./StackNavigator";
+import { AuthProvider } from "./hooks/useAuth";
 
 export default function App() {
-  return (
-    <NavigationContainer>
-      <StackNavigator />
-    </NavigationContainer>
-  );
+    return (
+        <NavigationContainer>
+            <AuthProvider>
+                <StackNavigator />
+            </AuthProvider>
+        </NavigationContainer>
+    );
 }
