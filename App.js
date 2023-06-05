@@ -1,13 +1,14 @@
-import React from 'react';
-import {TailwindProvider} from 'tailwind-rn';
-
-import utilities from './tailwind.json';
-import { Hello } from './components/Hello'
+import { NavigationContainer } from "@react-navigation/native";
+import React from "react";
+import { StackNavigator } from "./StackNavigator";
+import { AuthProvider } from "./hooks/useAuth";
 
 export default function App() {
-  return (
-    <TailwindProvider utilities={utilities}>
-      <Hello />
-    </TailwindProvider>
-  );
+    return (
+        <NavigationContainer>
+            <AuthProvider>
+                <StackNavigator />
+            </AuthProvider>
+        </NavigationContainer>
+    );
 }
