@@ -1,6 +1,11 @@
 import * as Google from "expo-auth-session/providers/google";
 import * as WebBrowser from "expo-web-browser";
-import { GoogleAuthProvider, signInWithCredential } from "firebase/auth";
+import {
+    GoogleAuthProvider,
+    onAuthStateChanged,
+    signInWithCredential,
+    signOut
+} from "firebase/auth";
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { auth } from "./firebase";
 
@@ -20,51 +25,51 @@ const config = {
 };
 
 export const AuthProvider = ({ children }) => {
-    const [tokens, setTokens] = useState({
-        accessToken: undefined
-    });
-    // const [userInfo, setUserInfo] = useState(null);
     const [error, setError] = useState(null);
-
     const [request, response, signInWithGoogle] = Google.useAuthRequest(config);
+    const [user, setUser] = useState(null);
+    const [loadingInitial, setLoadingInitial] = useState(true);
+    const [loading, setLoading] = useState(false);
+
+    useEffect(() => {
+        onAuthStateChanged(auth, (user) => {
+            if (user) setUser(user);
+            else setUser(null);
+            setLoadingInitial(false);
+            setLoading(false);
+        });
+    }, []);
+
+    const logout = () => {
+        setLoading(true);
+        signOut(auth)
+            .catch((error) => setError(error))
+            .finally(() => setLoading(false));
+    };
 
     useEffect(async () => {
+        setLoading(true);
         try {
             if (response?.type === "success") {
                 const credential = await GoogleAuthProvider.credential(
                     null,
                     response.params.access_token
                 );
-                setTokens({
-                    accessToken: response.params.access_token
-                });
 
                 await signInWithCredential(auth, credential);
             }
         } catch (error) {
             setError(error);
+        } finally {
+            () => setLoading(false);
         }
     }, [response]);
 
-    // const getUserInfo = async () => {
-    //     try {
-    //         const response = await fetch(
-    //             "https://www.googleapis.com/userinfo/v2/me",
-    //             {
-    //                 headers: { Authorization: `Bearer ${token}` }
-    //             }
-    //         );
-
-    //         const user = await response.json();
-    //         setUserInfo(user);
-    //     } catch (error) {
-    //         // Add your own error handler here
-    //     }
-    // };
-
     return (
-        <AuthContext.Provider value={{ user: null, signInWithGoogle, request }}>
-            {children}
+        <AuthContext.Provider
+            value={{ user, loading, error, logout, signInWithGoogle }}
+        >
+            {!loadingInitial && children}
         </AuthContext.Provider>
     );
 };

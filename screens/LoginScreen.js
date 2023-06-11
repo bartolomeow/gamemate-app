@@ -3,15 +3,15 @@ import { Button, Text, View } from "react-native";
 import useAuth from "../hooks/useAuth";
 
 const LoginScreen = () => {
-    const { request, signInWithGoogle } = useAuth();
+    const { loading, signInWithGoogle } = useAuth();
     return (
         <>
             <View>
-                <Text>LoginScreen</Text>
+                <Text>{loading ? "Loading..." : "LoginScreen"}</Text>
             </View>
             <Button
                 title="Sign in with Google"
-                disabled={!request}
+                disabled={loading}
                 onPress={signInWithGoogle}
             />
         </>
