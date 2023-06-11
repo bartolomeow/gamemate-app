@@ -1,13 +1,13 @@
 import React, { createContext, useContext } from "react";
-import * as Google from "expo-google-app-auth";
+import * as Google from "expo-auth-session";
 
 const AuthContext = createContext({});
 
 export const AuthProvider = ({ children }) => {
 
-    const signInWithGoogle = async() => {
-        await Google.logInAsync()
-    }
+    // const signInWithGoogle = async() => {
+    //     await Google.logInAsync()
+    // }
 
     return (
         <AuthContext.Provider value={{ user: null }}>
