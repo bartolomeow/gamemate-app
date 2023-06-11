@@ -2862,10 +2862,10 @@ expo-modules-core@0.6.5:
     compare-versions "^3.4.0"
     invariant "^2.2.4"
 
-expo-random@^13.1.1:
-  version "13.1.1"
-  resolved "https://registry.yarnpkg.com/expo-random/-/expo-random-13.1.1.tgz#15e781911d5db4fbcee75e26ac109bc2523fe00c"
-  integrity sha512-+KkhGp7xW45GvMRzlcSOzvDwzTgyXo6C84GaG4GI43rOdECBQ2lGUJ12st39OtfZm1lORNskpi66DjnuJ73g9w==
+expo-random@12.1.1:
+  version "12.1.1"
+  resolved "https://registry.yarnpkg.com/expo-random/-/expo-random-12.1.1.tgz#75f6eec8d4b9026a27eb90ed4b60d56dab414106"
+  integrity sha512-AxxP9aqgCgGQsUC9jvMaaMXLmdkwbeil1MYqLJVMsueeAifsRDAroSGcpkbuXjK7lgNFdfdJNU/+4Z7ybBev/A==
   dependencies:
     base64-js "^1.3.0"
 
@@ -5074,10 +5074,10 @@ react-native-codegen@^0.0.6:
     jscodeshift "^0.11.0"
     nullthrows "^1.1.1"
 
-react-native-safe-area-context@^4.5.3:
-  version "4.5.3"
-  resolved "https://registry.yarnpkg.com/react-native-safe-area-context/-/react-native-safe-area-context-4.5.3.tgz#e98eb1a73a6b3846d296545fe74760754dbaaa69"
-  integrity sha512-ihYeGDEBSkYH+1aWnadNhVtclhppVgd/c0tm4mj0+HV11FoiWJ8N6ocnnZnRLvM5Fxc+hUqxR9bm5AXU3rXiyA==
+react-native-safe-area-context@3.3.2:
+  version "3.3.2"
+  resolved "https://registry.yarnpkg.com/react-native-safe-area-context/-/react-native-safe-area-context-3.3.2.tgz#9549a2ce580f2374edb05e49d661258d1b8bcaed"
+  integrity sha512-yOwiiPJ1rk+/nfK13eafbpW6sKW0jOnsRem2C1LPJjM3tfTof6hlvV5eWHATye3XOpu2cJ7N+HdkUvUDGwFD2Q==
 
 react-native-safe-area-view@^1.1.1:
   version "1.1.1"
@@ -5086,10 +5086,10 @@ react-native-safe-area-view@^1.1.1:
   dependencies:
     hoist-non-react-statics "^2.3.1"
 
-react-native-screens@^3.20.0:
-  version "3.20.0"
-  resolved "https://registry.yarnpkg.com/react-native-screens/-/react-native-screens-3.20.0.tgz#4d154177395e5541387d9a05bc2e12e54d2fb5b1"
-  integrity sha512-joWUKWAVHxymP3mL9gYApFHAsbd9L6ZcmpoZa6Sl3W/82bvvNVMqcfP7MeNqVCg73qZ8yL4fW+J/syusHleUgg==
+react-native-screens@3.10.1:
+  version "3.10.1"
+  resolved "https://registry.yarnpkg.com/react-native-screens/-/react-native-screens-3.10.1.tgz#2634a1a17380c559a06de391e4969ae72c4365ff"
+  integrity sha512-ZF/XHnRsuinvDY1XiCWLXxoUoSf+NgsAes2SZfX9rFQQcv128zmh/+19SSavGrSf6rQNzqytEMdRGI6yr4Gbjw==
   dependencies:
     react-freeze "^1.0.0"
     warn-once "^0.1.0"
