@@ -1,20 +1,46 @@
+import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/core";
 import React from "react";
-import { Button, Text, View } from "react-native";
+import {
+    Button,
+    Image,
+    SafeAreaView,
+    Text,
+    TouchableOpacity,
+    View
+} from "react-native";
+import { useTailwind } from "tailwind-rn";
 import useAuth from "../hooks/useAuth";
 
 const HomeScreen = () => {
+    const tw = useTailwind();
     const navigation = useNavigation();
-    const { logout, loading } = useAuth();
+    const { user, logout, loading } = useAuth();
+
     return (
-        <View>
-            <Text>HomeScreen</Text>
-            <Button
-                title="Go to chat"
-                onPress={() => navigation.navigate("Chat")}
-            />
-            <Button title="Sign out" disabled={loading} onPress={logout} />
-        </View>
+        <SafeAreaView>
+            <View style={tw("flex-row items-center justify-between px-5")}>
+                <TouchableOpacity onPress={logout}>
+                    <Image
+                        style={tw("h-10 w-10 rounded-full")}
+                        source={{ uri: user.photoURL }}
+                    />
+                </TouchableOpacity>
+                <TouchableOpacity>
+                    <Image
+                        style={tw("h-14 w-14")}
+                        source={require("../assets/logo.png")}
+                    />
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => navigation.navigate('Chat')}>
+                    <Ionicons
+                        name="chatbubbles-sharp"
+                        size={30}
+                        color="#FF5864"
+                    />
+                </TouchableOpacity>
+            </View>
+        </SafeAreaView>
     );
 };
 
