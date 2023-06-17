@@ -2,6 +2,10 @@
   height: 100%
 }
 
+.flex-1 {
+  flex: 1 1 0%
+}
+
 .items-center {
   align-items: center
 }
@@ -31,6 +35,11 @@
 
 .font-semibold {
   font-weight: 600
+}
+
+.text-blue-600 {
+  --tw-text-opacity: 1;
+  color: rgb(37 99 235 / var(--tw-text-opacity))
 }
 
 .text-blue-800 {

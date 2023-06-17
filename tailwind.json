@@ -4,6 +4,13 @@
 			"height": "100%"
 		}
 	},
+	"flex-1": {
+		"style": {
+			"flexGrow": 1,
+			"flexShrink": 1,
+			"flexBasis": "0%"
+		}
+	},
 	"items-center": {
 		"style": {
 			"alignItems": "center"
@@ -43,6 +50,12 @@
 	"font-semibold": {
 		"style": {
 			"fontWeight": "600"
+		}
+	},
+	"text-blue-600": {
+		"style": {
+			"--tw-text-opacity": 1,
+			"color": "rgb(37 99 235 / var(--tw-text-opacity))"
 		}
 	},
 	"text-blue-800": {
