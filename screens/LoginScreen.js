@@ -1,6 +1,6 @@
 import { useNavigation } from "@react-navigation/native";
 import React, { useLayoutEffect } from "react";
-import { Button, ImageBackground, Text, View } from "react-native";
+import { ImageBackground, Text, TouchableOpacity, View } from "react-native";
 import { useTailwind } from "tailwind-rn";
 import useAuth from "../hooks/useAuth";
 
@@ -32,12 +32,20 @@ const LoginScreen = () => {
                         uri: "https://wallpaperaccess.com/full/649846.jpg"
                     }}
                 ></ImageBackground>
-                <Button
-                    title="Sign in with Google"
-                    disabled={loading}
+                <TouchableOpacity
+                    style={[
+                        tw("absolute bottom-40 w-52 bg-white p-4 rounded-2xl"),
+                        { marginHorizontal: "25%" }
+                    ]}
                     onPress={signInWithGoogle}
-                />
-                <Text style={tw("text-blue-600")}>Hello world</Text>
+                >
+                    <Text
+                        style={tw("font-semibold text-center")}
+                        disabled={loading}
+                    >
+                        Sign in & get swiping
+                    </Text>
+                </TouchableOpacity>
             </View>
         </>
     );
