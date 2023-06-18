@@ -22,21 +22,21 @@ const HomeScreen = () => {
         {
             id: 1,
             gamertag: "Charles",
-            gameCategory: "Retro",
+            favoriteGame: "Retro",
             photoURL:
                 "https://www.biografiasyvidas.com/monografia/chaplin/fotos/chaplin340a.jpg"
         },
         {
             id: 2,
             gamertag: "Jeff",
-            gameCategory: "Futuristic",
+            favoriteGame: "Futuristic",
             photoURL:
                 "https://www.elcorreo.com/xlsemanal/wp-content/uploads/sites/5/2021/07/jeff-bezos-el-amo-del-mundo.jpg"
         },
         {
             id: 3,
             gamertag: "Eddie",
-            gameCategory: "Sports",
+            favoriteGame: "Sports",
             photoURL:
                 "https://legismark.com/wp-content/uploads/2020/11/patente-van-halen.jpg"
         }
@@ -44,14 +44,14 @@ const HomeScreen = () => {
 
     return (
         <SafeAreaView style={tw("flex-1")}>
-            <View style={tw("flex-row items-center justify-between px-5")}>
+            <View style={tw("flex-row items-center justify-between px-5 z-[1]")}>
                 <TouchableOpacity onPress={logout}>
                     <Image
                         style={tw("h-10 w-10 rounded-full")}
                         source={{ uri: user.photoURL }}
                     />
                 </TouchableOpacity>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => navigation.navigate("Modal")}>
                     <Image
                         style={tw("h-14 w-14")}
                         source={require("../assets/logo.png")}
@@ -65,13 +65,7 @@ const HomeScreen = () => {
                     />
                 </TouchableOpacity>
             </View>
-            <Image
-                style={tw("absolute top-0 h-full w-full rounded-xl")}
-                src={{
-                    uri: "https://www.elcorreo.com/xlsemanal/wp-content/uploads/sites/5/2021/07/jeff-bezos-el-amo-del-mundo.jpg"
-                }}
-            />
-            <View style={tw("flex-1 -mt-6")}>
+            <View style={tw("flex-1 -mt-5")}>
                 <Swiper
                     ref={swipeRef}
                     containerStyle={{ backgroundColor: "transparent" }}
