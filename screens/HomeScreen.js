@@ -3,9 +3,11 @@ import { useNavigation } from "@react-navigation/core";
 import {
     collection,
     doc,
+    getDoc,
     getDocs,
     onSnapshot,
     query,
+    serverTimestamp,
     setDoc,
     where
 } from "firebase/firestore";
@@ -22,6 +24,7 @@ import Swiper from "react-native-deck-swiper";
 import { useTailwind } from "tailwind-rn";
 import { db } from "../hooks/firebase";
 import useAuth from "../hooks/useAuth";
+import generateId from "../lib/generateId";
 
 const HomeScreen = () => {
     const tw = useTailwind();
@@ -81,10 +84,42 @@ const HomeScreen = () => {
         const userSwiped = profiles[cardIndex];
         setDoc(doc(db, "users", user.uid, "passes", userSwiped.id), userSwiped);
     };
-    const swipeRight = (cardIndex) => {
+    const swipeRight = async (cardIndex) => {
         if (!profiles[cardIndex]) return;
         const userSwiped = profiles[cardIndex];
-        setDoc(doc(db, "users", user.uid, "swipes", userSwiped.id), userSwiped);
+        const loggedInProfile = await (
+            await getDoc(doc(db, "users", user.uid))
+        ).data();
+
+        getDoc(doc(db, "users", userSwiped.id, "swipes", user.uid)).then(
+            (documentSnapshot) => {
+                if (documentSnapshot.exists()) {
+                    setDoc(
+                        doc(db, "users", user.uid, "swipes", userSwiped.id),
+                        userSwiped
+                    );
+                    setDoc(
+                        doc(db, "matches", generateId(user.uid, userSwiped.id)),
+                        {
+                            users: {
+                                [user.uid]: loggedInProfile,
+                                [userSwiped.id]: userSwiped
+                            },
+                            usersMatched: [user.uid, userSwiped.id],
+                            timestamp: serverTimestamp()
+                        }
+                    );
+                    navigation.navigate("Match", {
+                        loggedInProfile,
+                        userSwiped
+                    });
+                } else
+                    setDoc(
+                        doc(db, "users", user.uid, "swipes", userSwiped.id),
+                        userSwiped
+                    );
+            }
+        );
     };
 
     return (
