@@ -32,20 +32,31 @@ const HomeScreen = () => {
     const [loading, setLoading] = useState(false);
     const swipeRef = useRef(null);
 
+    useLayoutEffect(() => {
+        onSnapshot(doc(db, "users", user.uid), (snapshot) => {
+            if (!snapshot.exists()) {
+                navigation.navigate("Modal");
+            }
+        });
+    }, []);
+
     useEffect(() => {
         let unsub;
         const fetchCards = async () => {
             setLoading(true);
-            const passes = getDocs(
+            const passes = await getDocs(
                 collection(db, "users", user.uid, "passes")
             ).then((snapshot) => snapshot.docs.map((doc) => doc.id));
-            const passedUserIds =
-                (await passes).length > 0 ? await passes : ["test"];
+            const swipes = await getDocs(
+                collection(db, "users", user.uid, "swipes")
+            ).then((snapshot) => snapshot.docs.map((doc) => doc.id));
+            const passedUserIds = passes.length > 0 ? passes : ["test"];
+            const swipesUserIds = swipes.length > 0 ? swipes : ["test"];
 
             unsub = onSnapshot(
                 query(
                     collection(db, "users"),
-                    where("id", "not-in", [...passedUserIds])
+                    where("id", "not-in", [...passedUserIds, ...swipesUserIds])
                 ),
                 (snapshot) => {
                     const showProfiles = snapshot.docs
@@ -56,13 +67,14 @@ const HomeScreen = () => {
                         }));
                     setProfiles(showProfiles);
                     if (showProfiles.length === 0) setNoMoreCards(true);
+                    else setNoMoreCards(false);
                     setLoading(false);
                 }
             );
         };
         fetchCards();
         return unsub;
-    }, []);
+    }, [db]);
 
     const swipeLeft = (cardIndex) => {
         if (!profiles[cardIndex]) return;
@@ -71,15 +83,9 @@ const HomeScreen = () => {
     };
     const swipeRight = (cardIndex) => {
         if (!profiles[cardIndex]) return;
+        const userSwiped = profiles[cardIndex];
+        setDoc(doc(db, "users", user.uid, "swipes", userSwiped.id), userSwiped);
     };
-
-    useLayoutEffect(() => {
-        onSnapshot(doc(db, "users", user.uid), (snapshot) => {
-            if (!snapshot.exists()) {
-                navigation.navigate("Modal");
-            }
-        });
-    }, []);
 
     return (
         <SafeAreaView style={tw("flex-1")}>
