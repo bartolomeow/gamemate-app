@@ -74,6 +74,11 @@
 			"marginTop": 12
 		}
 	},
+	"mr-3": {
+		"style": {
+			"marginRight": 12
+		}
+	},
 	"flex": {
 		"style": {
 			"display": "flex"
@@ -114,6 +119,11 @@
 			"height": "100%"
 		}
 	},
+	"h-5": {
+		"style": {
+			"height": 20
+		}
+	},
 	"w-10": {
 		"style": {
 			"width": 40
@@ -152,6 +162,11 @@
 	"w-20": {
 		"style": {
 			"width": 80
+		}
+	},
+	"w-5": {
+		"style": {
+			"width": 20
 		}
 	},
 	"flex-1": {

@@ -1,6 +1,14 @@
 import { Entypo, Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/core";
-import { collection, doc, onSnapshot } from "firebase/firestore";
+import {
+    collection,
+    doc,
+    getDocs,
+    onSnapshot,
+    query,
+    setDoc,
+    where
+} from "firebase/firestore";
 import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
 import {
     Image,
@@ -21,35 +29,47 @@ const HomeScreen = () => {
     const { user, logout } = useAuth();
     const [profiles, setProfiles] = useState([]);
     const [noMoreCards, setNoMoreCards] = useState(false);
+    const [loading, setLoading] = useState(false);
     const swipeRef = useRef(null);
-
-    useEffect(() => {
-        if (profiles.length === 0) setNoMoreCards(true);
-        else setNoMoreCards(false);
-    }, [profiles]);
 
     useEffect(() => {
         let unsub;
         const fetchCards = async () => {
-            unsub = onSnapshot(collection(db, "users"), (snapshot) => {
-                setProfiles(
-                    snapshot.docs
+            setLoading(true);
+            const passes = getDocs(
+                collection(db, "users", user.uid, "passes")
+            ).then((snapshot) => snapshot.docs.map((doc) => doc.id));
+            const passedUserIds =
+                (await passes).length > 0 ? await passes : ["test"];
+
+            unsub = onSnapshot(
+                query(
+                    collection(db, "users"),
+                    where("id", "not-in", [...passedUserIds])
+                ),
+                (snapshot) => {
+                    const showProfiles = snapshot.docs
                         .filter((doc) => doc.id !== user.uid)
                         .map((doc) => ({
                             id: doc.id,
                             ...doc.data()
-                        }))
-                );
-            });
+                        }));
+                    setProfiles(showProfiles);
+                    if (showProfiles.length === 0) setNoMoreCards(true);
+                    setLoading(false);
+                }
+            );
         };
         fetchCards();
         return unsub;
     }, []);
 
-    const swipeLeft = async () => {
+    const swipeLeft = (cardIndex) => {
         if (!profiles[cardIndex]) return;
+        const userSwiped = profiles[cardIndex];
+        setDoc(doc(db, "users", user.uid, "passes", userSwiped.id), userSwiped);
     };
-    const swipeRight = async () => {
+    const swipeRight = (cardIndex) => {
         if (!profiles[cardIndex]) return;
     };
 
@@ -110,6 +130,20 @@ const HomeScreen = () => {
                             uri: "https://www.cambridge.org/elt/blog/wp-content/uploads/2019/07/Sad-Face-Emoji.png"
                         }}
                     />
+                </View>
+            )}
+            {loading && (
+                <View
+                    style={[
+                        tw(
+                            "relative bg-white h-3/4 rounded-xl justify-center items-center text-center m-7"
+                        ),
+                        styles.cardShadow
+                    ]}
+                >
+                    <Text style={tw("pb-5 font-semibold")}>
+                        Cargando perfiles...
+                    </Text>
                 </View>
             )}
             <View style={tw("flex-1 -mt-5")}>
