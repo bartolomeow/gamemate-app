@@ -27,7 +27,7 @@ export const StackNavigator = () => {
                         <Stack.Screen name="Modal" component={ModalScreen} />
                     </Stack.Group>
                     <Stack.Group
-                        //screenOptions={{ presentation: "transparentModal" }}
+                        screenOptions={{ presentation: "transparentModal" }}
                     >
                         <Stack.Screen name="Match" component={MatchScreen} />
                     </Stack.Group>
