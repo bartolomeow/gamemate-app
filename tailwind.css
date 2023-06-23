@@ -38,6 +38,10 @@
   margin: 1.75rem
 }
 
+.m-1 {
+  margin: 0.25rem
+}
+
 .mx-3 {
   margin-left: 0.75rem;
   margin-right: 0.75rem
@@ -274,6 +278,10 @@
 
 .p-5 {
   padding: 1.25rem
+}
+
+.p-1 {
+  padding: 0.25rem
 }
 
 .px-10 {

@@ -1,6 +1,6 @@
 import { useNavigation } from "@react-navigation/native";
-import { doc, serverTimestamp, setDoc } from "firebase/firestore";
-import React, { useLayoutEffect, useState } from "react";
+import { doc, onSnapshot, serverTimestamp, setDoc } from "firebase/firestore";
+import React, { useEffect, useLayoutEffect, useState } from "react";
 import { Image, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { useTailwind } from "tailwind-rn";
 import { db } from "../hooks/firebase";
@@ -13,6 +13,11 @@ const ModalScreen = () => {
     const [image, setImage] = useState(null);
     const [gamertag, setGamertag] = useState(null);
     const [favoriteGame, setFavoriteGame] = useState(null);
+    const [existingProps, setExistingProps] = useState({
+        photoURL: undefined,
+        gamertag: undefined,
+        favoriteGame: undefined
+    });
 
     useLayoutEffect(() => {
         navigation.setOptions({
@@ -25,13 +30,34 @@ const ModalScreen = () => {
         });
     }, []);
 
-    const updateUserProfile = () => {
+    useEffect(() => {
+        onSnapshot(doc(db, "users", user.uid), (snapshot) => {
+            if (snapshot.exists()) {
+                setExistingProps({
+                    photoURL: snapshot.data().photoURL,
+                    gamertag: snapshot.data().gamertag,
+                    favoriteGame: snapshot.data().favoriteGame
+                });
+            }
+        });
+    }, []);
+
+    const updateUserProfile = async () => {
+        onSnapshot(doc(db, "users", user.uid), (snapshot) => {
+            if (snapshot.exists()) {
+                setExistingProps({
+                    photoURL: snapshot.data().photoURL,
+                    gamertag: snapshot.data().gamertag,
+                    favoriteGame: snapshot.data().favoriteGame
+                });
+            }
+        });
         setDoc(doc(db, "users", user.uid), {
             id: user.uid,
             displayName: user.displayName,
-            photoURL: image,
-            gamertag: gamertag,
-            favoriteGame: favoriteGame,
+            photoURL: image || existingProps.photoURL,
+            gamertag: gamertag || existingProps.gamertag,
+            favoriteGame: favoriteGame || existingProps.favoriteGame,
             timestamp: serverTimestamp()
         })
             .then(() => {
@@ -42,7 +68,10 @@ const ModalScreen = () => {
             });
     };
 
-    const incompleteForm = !image || !gamertag || !favoriteGame;
+    const formChanged =
+        (image || existingProps.photoURL) &&
+        (gamertag || existingProps.gamertag) &&
+        (favoriteGame || existingProps.favoriteGame);
     return (
         <View style={tw("flex-1 items-center pt-2")}>
             <Image
@@ -72,7 +101,7 @@ const ModalScreen = () => {
                 value={gamertag}
                 onChangeText={(gamertag) => setGamertag(gamertag)}
                 style={tw("text-center text-xl pb-2")}
-                placeholder="Gamertag principal"
+                placeholder={existingProps.gamertag || "Gamertag principal"}
                 maxLength={50}
             />
             <Text style={tw("text-center p-4 font-bold text-red-400")}>
@@ -82,15 +111,17 @@ const ModalScreen = () => {
                 value={favoriteGame}
                 onChangeText={(favoriteGame) => setFavoriteGame(favoriteGame)}
                 style={tw("text-center text-xl pb-2")}
-                placeholder="Escribe el título o saga"
+                placeholder={
+                    existingProps.favoriteGame || "Escribe el título o saga"
+                }
                 maxLength={200}
             />
             <TouchableOpacity
                 style={[
                     tw("w-64 p-3 rounded-xl absolute bottom-10 bg-red-400"),
-                    incompleteForm ? tw("bg-gray-400") : tw("bg-red-400")
+                    !formChanged ? tw("bg-gray-400") : tw("bg-red-400")
                 ]}
-                disabled={incompleteForm}
+                disabled={!formChanged}
                 onPress={updateUserProfile}
             >
                 <Text style={tw("text-center text-white text-xl")}>

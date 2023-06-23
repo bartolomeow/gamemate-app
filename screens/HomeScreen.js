@@ -139,8 +139,10 @@ const HomeScreen = () => {
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => navigation.navigate("Modal")}>
                     <Image
-                        style={tw("h-14 w-14")}
-                        source={require("../assets/logo.png")}
+                        style={tw("h-14 w-14 m-1")}
+                        source={{
+                            uri: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/Xbox_Logo.svg/1200px-Xbox_Logo.svg.png"
+                        }}
                     />
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => navigation.navigate("Chat")}>
