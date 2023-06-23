@@ -1,7 +1,14 @@
 import { useNavigation } from "@react-navigation/native";
 import { doc, onSnapshot, serverTimestamp, setDoc } from "firebase/firestore";
 import React, { useEffect, useLayoutEffect, useState } from "react";
-import { Image, Text, TextInput, TouchableOpacity, View } from "react-native";
+import {
+    ActivityIndicator,
+    Image,
+    Text,
+    TextInput,
+    TouchableOpacity,
+    View
+} from "react-native";
 import { useTailwind } from "tailwind-rn";
 import { db } from "../hooks/firebase";
 import useAuth from "../hooks/useAuth";
@@ -10,14 +17,15 @@ const ModalScreen = () => {
     const { user } = useAuth();
     const navigation = useNavigation();
     const tw = useTailwind();
-    const [image, setImage] = useState(null);
-    const [gamertag, setGamertag] = useState(null);
-    const [favoriteGame, setFavoriteGame] = useState(null);
+    const [image, setImage] = useState(undefined);
+    const [gamertag, setGamertag] = useState(undefined);
+    const [favoriteGame, setFavoriteGame] = useState(undefined);
     const [existingProps, setExistingProps] = useState({
         photoURL: undefined,
         gamertag: undefined,
         favoriteGame: undefined
     });
+    const [alert, setAlert] = useState(false);
 
     useLayoutEffect(() => {
         navigation.setOptions({
@@ -43,6 +51,7 @@ const ModalScreen = () => {
     }, []);
 
     const updateUserProfile = async () => {
+        setAlert(true);
         onSnapshot(doc(db, "users", user.uid), (snapshot) => {
             if (snapshot.exists()) {
                 setExistingProps({
@@ -61,6 +70,7 @@ const ModalScreen = () => {
             timestamp: serverTimestamp()
         })
             .then(() => {
+                setAlert(false);
                 navigation.navigate("Home");
             })
             .catch((error) => {
@@ -125,7 +135,11 @@ const ModalScreen = () => {
                 onPress={updateUserProfile}
             >
                 <Text style={tw("text-center text-white text-xl")}>
-                    Actualizar perfil
+                    {alert ? (
+                        <ActivityIndicator size={"small"} color="#ffffff" />
+                    ) : (
+                        "Actualizar perfil"
+                    )}
                 </Text>
             </TouchableOpacity>
         </View>

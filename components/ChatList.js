@@ -1,6 +1,6 @@
 import { collection, onSnapshot, query, where } from "@firebase/firestore";
 import React, { useEffect, useState } from "react";
-import { FlatList, Text, View } from "react-native";
+import { ActivityIndicator, FlatList, Text, View } from "react-native";
 import { useTailwind } from "tailwind-rn";
 import { db } from "../hooks/firebase";
 import useAuth from "../hooks/useAuth";
@@ -10,6 +10,7 @@ const ChatList = () => {
     const tw = useTailwind();
     const [matches, setMatches] = useState([]);
     const { user } = useAuth();
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         onSnapshot(
@@ -17,17 +18,21 @@ const ChatList = () => {
                 collection(db, "matches"),
                 where("usersMatched", "array-contains", user.uid)
             ),
-            (snapshot) =>
+            (snapshot) => {
                 setMatches(
                     snapshot.docs.map((doc) => ({
                         id: doc.id,
                         ...doc.data()
                     }))
-                )
+                );
+                setLoading(false);
+            }
         );
     }, []);
 
-    return matches.length > 0 ? (
+    return loading ? (
+        <ActivityIndicator size="large" />
+    ) : matches.length > 0 ? (
         <FlatList
             style={tw("h-full")}
             data={matches}
