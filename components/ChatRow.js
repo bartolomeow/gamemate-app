@@ -13,7 +13,7 @@ const ChatRow = ({ matchDetails }) => {
 
     useEffect(() => {
         setMatchedUserInfo(getMatchedUserInfo(matchDetails.users, user.uid));
-    }, [matchDetails]);
+    }, [matchDetails, user]);
 
     return (
         <TouchableOpacity
@@ -23,6 +23,11 @@ const ChatRow = ({ matchDetails }) => {
                 ),
                 styles.cardShadow
             ]}
+            onPress={() =>
+                navigation.navigate("Messages", {
+                    matchDetails
+                })
+            }
         >
             <Image
                 style={tw("rounded-full h-16 w-16 mr-4")}
@@ -30,7 +35,7 @@ const ChatRow = ({ matchDetails }) => {
             />
             <View>
                 <Text style={tw("text-lg font-semibold")}>
-                    {matchedUserInfo?.displayName}
+                    {matchedUserInfo?.gamertag}
                 </Text>
                 <Text>{"Sugerencia de ChatGPT"}</Text>
             </View>
