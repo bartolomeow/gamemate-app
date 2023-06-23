@@ -6,6 +6,10 @@
   position: relative
 }
 
+.-left-14 {
+  left: -3.5rem
+}
+
 .bottom-0 {
   bottom: 0px
 }
@@ -22,10 +26,6 @@
   top: 0px
 }
 
-.-left-14 {
-  left: -3.5rem
-}
-
 .z-\[1\] {
   z-index: 1
 }
@@ -36,6 +36,10 @@
 
 .m-7 {
   margin: 1.75rem
+}
+
+.m-1 {
+  margin: 0.25rem
 }
 
 .mx-3 {
@@ -62,6 +66,10 @@
   margin-top: -1.25rem
 }
 
+.ml-14 {
+  margin-left: 3.5rem
+}
+
 .mr-4 {
   margin-right: 1rem
 }
@@ -74,16 +82,16 @@
   margin-top: 1.25rem
 }
 
-.ml-14 {
-  margin-left: 3.5rem
-}
-
 .flex {
   display: flex
 }
 
 .h-10 {
   height: 2.5rem
+}
+
+.h-12 {
+  height: 3rem
 }
 
 .h-14 {
@@ -114,12 +122,12 @@
   height: 100%
 }
 
-.h-12 {
-  height: 3rem
-}
-
 .w-10 {
   width: 2.5rem
+}
+
+.w-12 {
+  width: 3rem
 }
 
 .w-14 {
@@ -152,10 +160,6 @@
 
 .w-full {
   width: 100%
-}
-
-.w-12 {
-  width: 3rem
 }
 
 .flex-1 {
@@ -203,12 +207,12 @@
   border-bottom-left-radius: 0.75rem
 }
 
-.rounded-tr-none {
-  border-top-right-radius: 0px
-}
-
 .rounded-tl-none {
   border-top-left-radius: 0px
+}
+
+.rounded-tr-none {
+  border-top-right-radius: 0px
 }
 
 .border-t {
@@ -260,11 +264,6 @@
   background-color: rgb(255 255 255 / var(--tw-bg-opacity))
 }
 
-.bg-red-600 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(220 38 38 / var(--tw-bg-opacity))
-}
-
 .p-2 {
   padding: 0.5rem
 }
@@ -279,6 +278,10 @@
 
 .p-5 {
   padding: 1.25rem
+}
+
+.p-1 {
+  padding: 0.25rem
 }
 
 .px-10 {

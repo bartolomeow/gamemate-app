@@ -1,7 +1,9 @@
 import { useNavigation } from "@react-navigation/native";
+import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { useTailwind } from "tailwind-rn";
+import { db } from "../hooks/firebase";
 import useAuth from "../hooks/useAuth";
 import getMatchedUserInfo from "../lib/getMatchedUserInfo";
 
@@ -10,10 +12,23 @@ const ChatRow = ({ matchDetails }) => {
     const { user } = useAuth();
     const [matchedUserInfo, setMatchedUserInfo] = useState(null);
     const tw = useTailwind();
+    const [lastMessage, setLastMessage] = useState("");
 
     useEffect(() => {
         setMatchedUserInfo(getMatchedUserInfo(matchDetails.users, user.uid));
     }, [matchDetails, user]);
+
+    useEffect(
+        () =>
+            onSnapshot(
+                query(
+                    collection(db, "matches", matchDetails.id, "messages"),
+                    orderBy("timestamp", "desc")
+                ),
+                (snapshot) => setLastMessage(snapshot.docs[0]?.data()?.message)
+            ),
+        [matchDetails, db]
+    );
 
     return (
         <TouchableOpacity
@@ -37,7 +52,7 @@ const ChatRow = ({ matchDetails }) => {
                 <Text style={tw("text-lg font-semibold")}>
                     {matchedUserInfo?.gamertag}
                 </Text>
-                <Text>{"Sugerencia de ChatGPT"}</Text>
+                <Text>{lastMessage || "Sugerencia de ChatGPT"}</Text>
             </View>
         </TouchableOpacity>
     );
