@@ -22,6 +22,10 @@
   top: 0px
 }
 
+.-left-14 {
+  left: -3.5rem
+}
+
 .z-\[1\] {
   z-index: 1
 }
@@ -44,6 +48,11 @@
   margin-bottom: 0.25rem
 }
 
+.my-2 {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem
+}
+
 .my-4 {
   margin-top: 1rem;
   margin-bottom: 1rem
@@ -63,6 +72,10 @@
 
 .mt-5 {
   margin-top: 1.25rem
+}
+
+.ml-14 {
+  margin-left: 3.5rem
 }
 
 .flex {
@@ -101,6 +114,10 @@
   height: 100%
 }
 
+.h-12 {
+  height: 3rem
+}
+
 .w-10 {
   width: 2.5rem
 }
@@ -135,6 +152,10 @@
 
 .w-full {
   width: 100%
+}
+
+.w-12 {
+  width: 3rem
 }
 
 .flex-1 {
@@ -182,6 +203,14 @@
   border-bottom-left-radius: 0.75rem
 }
 
+.rounded-tr-none {
+  border-top-right-radius: 0px
+}
+
+.rounded-tl-none {
+  border-top-left-radius: 0px
+}
+
 .border-t {
   border-top-width: 1px
 }
@@ -206,6 +235,11 @@
   background-color: rgb(187 247 208 / var(--tw-bg-opacity))
 }
 
+.bg-purple-600 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(147 51 234 / var(--tw-bg-opacity))
+}
+
 .bg-red-200 {
   --tw-bg-opacity: 1;
   background-color: rgb(254 202 202 / var(--tw-bg-opacity))
@@ -224,6 +258,11 @@
 .bg-white {
   --tw-bg-opacity: 1;
   background-color: rgb(255 255 255 / var(--tw-bg-opacity))
+}
+
+.bg-red-600 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(220 38 38 / var(--tw-bg-opacity))
 }
 
 .p-2 {
@@ -284,6 +323,10 @@
   padding-left: 0.5rem
 }
 
+.pl-4 {
+  padding-left: 1rem
+}
+
 .pt-10 {
   padding-top: 2.5rem
 }
@@ -294,10 +337,6 @@
 
 .pt-20 {
   padding-top: 5rem
-}
-
-.pl-4 {
-  padding-left: 1rem
 }
 
 .text-center {

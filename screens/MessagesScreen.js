@@ -1,5 +1,13 @@
 import { useRoute } from "@react-navigation/native";
-import React, { useState } from "react";
+import {
+    addDoc,
+    collection,
+    onSnapshot,
+    orderBy,
+    query,
+    serverTimestamp
+} from "firebase/firestore";
+import React, { useEffect, useState } from "react";
 import {
     Button,
     FlatList,
@@ -13,6 +21,9 @@ import {
 } from "react-native";
 import { useTailwind } from "tailwind-rn";
 import Header from "../components/Header";
+import ReceiverMessage from "../components/receiverMessage";
+import SenderMessage from "../components/senderMessage";
+import { db } from "../hooks/firebase";
 import useAuth from "../hooks/useAuth";
 import getMatchedUserInfo from "../lib/getMatchedUserInfo";
 
@@ -25,7 +36,35 @@ const MessagesScreen = () => {
     const [input, setInput] = useState("");
     const [messages, setMessages] = useState([]);
 
-    const sendMessage = () => {};
+    useEffect(
+        () =>
+            onSnapshot(
+                query(
+                    collection(db, "matches", matchDetails.id, "messages"),
+                    orderBy("timestamp", "desc")
+                ),
+                (snapshot) =>
+                    setMessages(
+                        snapshot.docs.map((doc) => ({
+                            id: doc.id,
+                            ...doc.data()
+                        }))
+                    )
+            ),
+        [matchDetails, db]
+    );
+
+    const sendMessage = () => {
+        addDoc(collection(db, "matches", matchDetails.id, "messages"), {
+            timestamp: serverTimestamp(),
+            userId: user.uid,
+            displayName: user.displayName,
+            photoURL: matchDetails.users[user.uid].photoURL,
+            message: input
+        });
+
+        setInput("");
+    };
 
     return (
         <SafeAreaView style={tw("flex-1")}>
@@ -42,14 +81,21 @@ const MessagesScreen = () => {
             >
                 <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
                     <FlatList
-                        data={message}
+                        inverted
+                        data={messages}
                         style={tw("pl-4")}
                         keyExtractor={(item) => item.id}
                         renderItem={({ item: message }) =>
                             message.userId === user.uid ? (
-                                <SenderMessage key={message.id} />
+                                <SenderMessage
+                                    key={message.id}
+                                    message={message}
+                                />
                             ) : (
-                                <ReceiverMessage key={message.id} />
+                                <ReceiverMessage
+                                    key={message.id}
+                                    message={message}
+                                />
                             )
                         }
                     />
