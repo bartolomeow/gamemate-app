@@ -55,13 +55,14 @@ const MessagesScreen = () => {
     );
 
     const sendMessage = () => {
-        addDoc(collection(db, "matches", matchDetails.id, "messages"), {
-            timestamp: serverTimestamp(),
-            userId: user.uid,
-            displayName: user.displayName,
-            photoURL: matchDetails.users[user.uid].photoURL,
-            message: input
-        });
+        if (input)
+            addDoc(collection(db, "matches", matchDetails.id, "messages"), {
+                timestamp: serverTimestamp(),
+                userId: user.uid,
+                displayName: user.displayName,
+                photoURL: matchDetails.users[user.uid].photoURL,
+                message: input
+            });
 
         setInput("");
     };
@@ -107,7 +108,7 @@ const MessagesScreen = () => {
                 )}
             >
                 <TextInput
-                    style={tw("h-10 text-lg")}
+                    style={tw("h-10 text-lg w-full")}
                     placeholder="Escribe un mensaje"
                     onChangeText={setInput}
                     onSubmitEditing={sendMessage}

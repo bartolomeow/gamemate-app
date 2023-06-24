@@ -9,7 +9,7 @@ const ReceiverMessage = ({ message }) => {
         <View
             style={[
                 tw(
-                    "bg-red-400 rounded-lg rounded-tl-none px-5 py-3 mx-3 my-2 ml-14"
+                    "bg-red-400 rounded-lg rounded-tl-none px-5 py-3 mx-5 my-2 ml-14 max-w-3/4"
                 ),
                 { alignSelf: "flex-start" }
             ]}

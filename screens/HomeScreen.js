@@ -1,4 +1,4 @@
-import { Entypo, Ionicons } from "@expo/vector-icons";
+import { Entypo, MaterialCommunityIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/core";
 import {
     collection,
@@ -13,6 +13,7 @@ import {
 } from "firebase/firestore";
 import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
 import {
+    ActivityIndicator,
     Image,
     SafeAreaView,
     StyleSheet,
@@ -69,8 +70,6 @@ const HomeScreen = () => {
                             ...doc.data()
                         }));
                     setProfiles(showProfiles);
-                    if (showProfiles.length === 0) setNoMoreCards(true);
-                    else setNoMoreCards(false);
                     setLoading(false);
                 }
             );
@@ -78,6 +77,35 @@ const HomeScreen = () => {
         fetchCards();
         return unsub;
     }, [db]);
+
+    // useEffect(() => {
+    //     onSnapshot(
+    //         query(
+    //             collection(db, "matches"),
+    //             where("usersMatched", "array-contains", user.uid)
+    //         ),
+    //         (snapshot) => {
+    //             snapshot.forEach((doc) => {
+    //                 const matchId = doc.id;
+    //                 const messagesRef = collection(
+    //                     db,
+    //                     "matches",
+    //                     matchId,
+    //                     "messages"
+    //                 );
+    //                 onSnapshot(messagesRef, (snapShot) => {
+    //                     if (messageNumber !== snapShot.docs.length)
+    //                         setMessageNumber(snapShot.docs.length);
+    //                 });
+    //             });
+    //         }
+    //     );
+    // }, []);
+
+    useEffect(() => {
+        if (profiles.length === 0) setNoMoreCards(true);
+        else setNoMoreCards(false);
+    }, [profiles]);
 
     const swipeLeft = (cardIndex) => {
         if (!profiles[cardIndex]) return;
@@ -146,48 +174,54 @@ const HomeScreen = () => {
                     />
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => navigation.navigate("Chat")}>
-                    <Ionicons
-                        name="chatbubbles-sharp"
+                    <MaterialCommunityIcons
+                        name={"message"}
                         size={30}
                         color="#FF5864"
                     />
                 </TouchableOpacity>
             </View>
-            {noMoreCards && (
+            {loading ? (
                 <View
                     style={[
                         tw(
-                            "relative bg-white h-3/4 rounded-xl justify-center items-center text-center m-7"
+                            "relative bg-white h-2/3 rounded-xl justify-center items-center text-center m-7"
                         ),
                         styles.cardShadow
                     ]}
                 >
-                    <Text style={tw("pb-5 font-semibold")}>
-                        No hay más perfiles
-                    </Text>
-                    <Image
-                        style={tw("h-20 w-20")}
-                        height={100}
-                        width={100}
-                        source={{
-                            uri: "https://www.cambridge.org/elt/blog/wp-content/uploads/2019/07/Sad-Face-Emoji.png"
-                        }}
+                    <ActivityIndicator
+                        color="#9262C2"
+                        size="large"
+                        style={tw("py-5")}
                     />
-                </View>
-            )}
-            {loading && (
-                <View
-                    style={[
-                        tw(
-                            "relative bg-white h-3/4 rounded-xl justify-center items-center text-center m-7"
-                        ),
-                        styles.cardShadow
-                    ]}
-                >
                     <Text style={tw("pb-5 font-semibold")}>
                         Cargando perfiles...
                     </Text>
                 </View>
+            ) : (
+                noMoreCards && (
+                    <View
+                        style={[
+                            tw(
+                                "relative bg-white h-2/3 rounded-xl justify-center items-center text-center m-7"
+                            ),
+                            styles.cardShadow
+                        ]}
+                    >
+                        <Text style={tw("pb-5 font-semibold")}>
+                            No hay más perfiles
+                        </Text>
+                        <Image
+                            style={tw("h-20 w-20")}
+                            height={100}
+                            width={100}
+                            source={{
+                                uri: "https://www.cambridge.org/elt/blog/wp-content/uploads/2019/07/Sad-Face-Emoji.png"
+                            }}
+                        />
+                    </View>
+                )
             )}
             <View style={tw("flex-1 -mt-5")}>
                 <Swiper
@@ -231,7 +265,7 @@ const HomeScreen = () => {
                         card !== undefined && (
                             <View
                                 key={card.id}
-                                style={tw("relative bg-white h-3/4 rounded-xl")}
+                                style={tw("relative bg-white h-5/6 rounded-xl")}
                             >
                                 <Image
                                     style={tw(
@@ -267,7 +301,7 @@ const HomeScreen = () => {
                     }
                 />
             </View>
-            <View style={tw("flex flex-row justify-evenly")}>
+            <View style={tw("flex flex-row justify-evenly mb-5")}>
                 <TouchableOpacity
                     onPress={() => swipeRef.current.swipeLeft()}
                     style={

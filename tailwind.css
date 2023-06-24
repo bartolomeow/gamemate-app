@@ -30,6 +30,10 @@
   z-index: 1
 }
 
+.m-1 {
+  margin: 0.25rem
+}
+
 .m-5 {
   margin: 1.25rem
 }
@@ -38,13 +42,14 @@
   margin: 1.75rem
 }
 
-.m-1 {
-  margin: 0.25rem
-}
-
 .mx-3 {
   margin-left: 0.75rem;
   margin-right: 0.75rem
+}
+
+.mx-5 {
+  margin-left: 1.25rem;
+  margin-right: 1.25rem
 }
 
 .my-1 {
@@ -66,6 +71,10 @@
   margin-top: -1.25rem
 }
 
+.mb-5 {
+  margin-bottom: 1.25rem
+}
+
 .ml-14 {
   margin-left: 3.5rem
 }
@@ -80,6 +89,10 @@
 
 .mt-5 {
   margin-top: 1.25rem
+}
+
+.ml-5 {
+  margin-left: 1.25rem
 }
 
 .flex {
@@ -102,6 +115,10 @@
   height: 4rem
 }
 
+.h-2\/3 {
+  height: 66.666667%
+}
+
 .h-20 {
   height: 5rem
 }
@@ -112,6 +129,10 @@
 
 .h-32 {
   height: 8rem
+}
+
+.h-5\/6 {
+  height: 83.333333%
 }
 
 .h-7 {
@@ -160,6 +181,18 @@
 
 .w-full {
   width: 100%
+}
+
+.w-auto {
+  width: auto
+}
+
+.max-w-3\/4 {
+  max-width: 75%
+}
+
+.max-w-xs {
+  max-width: 20rem
 }
 
 .flex-1 {
@@ -280,10 +313,6 @@
   padding: 1.25rem
 }
 
-.p-1 {
-  padding: 0.25rem
-}
-
 .px-10 {
   padding-left: 2.5rem;
   padding-right: 2.5rem
@@ -307,6 +336,11 @@
 .py-3 {
   padding-top: 0.75rem;
   padding-bottom: 0.75rem
+}
+
+.py-5 {
+  padding-top: 1.25rem;
+  padding-bottom: 1.25rem
 }
 
 .py-8 {
