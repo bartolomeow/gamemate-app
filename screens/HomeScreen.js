@@ -78,6 +78,30 @@ const HomeScreen = () => {
         return unsub;
     }, [db]);
 
+    // useEffect(() => {
+    //     onSnapshot(
+    //         query(
+    //             collection(db, "matches"),
+    //             where("usersMatched", "array-contains", user.uid)
+    //         ),
+    //         (snapshot) => {
+    //             snapshot.forEach((doc) => {
+    //                 const matchId = doc.id;
+    //                 const messagesRef = collection(
+    //                     db,
+    //                     "matches",
+    //                     matchId,
+    //                     "messages"
+    //                 );
+    //                 onSnapshot(messagesRef, (snapShot) => {
+    //                     if (messageNumber !== snapShot.docs.length)
+    //                         setMessageNumber(snapShot.docs.length);
+    //                 });
+    //             });
+    //         }
+    //     );
+    // }, []);
+
     useEffect(() => {
         if (profiles.length === 0) setNoMoreCards(true);
         else setNoMoreCards(false);
@@ -151,7 +175,7 @@ const HomeScreen = () => {
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => navigation.navigate("Chat")}>
                     <MaterialCommunityIcons
-                        name={"message-alert"}
+                        name={"message"}
                         size={30}
                         color="#FF5864"
                     />
@@ -180,7 +204,7 @@ const HomeScreen = () => {
                     <View
                         style={[
                             tw(
-                                "relative bg-white h-3/4 rounded-xl justify-center items-center text-center m-7"
+                                "relative bg-white h-2/3 rounded-xl justify-center items-center text-center m-7"
                             ),
                             styles.cardShadow
                         ]}
