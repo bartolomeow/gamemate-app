@@ -8,7 +8,9 @@
         "ios": "expo run:ios",
         "web": "expo start --web",
         "build:tailwind": "tailwindcss --input input.css --output tailwind.css --no-autoprefixer && tailwind-rn",
-        "dev:tailwind": "concurrently \"tailwindcss --input input.css --output tailwind.css --no-autoprefixer --watch\" \"tailwind-rn --watch\""
+        "dev:tailwind": "concurrently \"tailwindcss --input input.css --output tailwind.css --no-autoprefixer --watch\" \"tailwind-rn --watch\"",
+        "deploy": "gh-pages -d web-build",
+        "predeploy": "expo export:web"
     },
     "dependencies": {
         "@react-navigation/native": "^6.1.6",
@@ -36,8 +38,10 @@
         "@babel/core": "^7.12.9",
         "@types/react-dom": "^18.2.6",
         "concurrently": "^8.2.0",
+        "gh-pages": "^5.0.0",
         "postcss": "^8.4.24",
         "tailwindcss": "^3.3.2"
     },
-    "private": true
+    "private": true,
+    "homepage": "http://bartolomeow.github.io/gamemate-app"
 }

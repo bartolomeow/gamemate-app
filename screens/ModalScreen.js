@@ -34,7 +34,8 @@ const ModalScreen = () => {
             headerStyle: {
                 backgroundColor: "#FF5864"
             },
-            headerTitleStyle: { color: "white" }
+            headerTitleStyle: { color: "white" },
+            headerTintColor: "#fff"
         });
     }, []);
 
