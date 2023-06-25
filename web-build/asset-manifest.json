@@ -1,7 +1,7 @@
 {
   "files": {
     "main.js": "/gamemate-app/static/js/main.6bfb2980.js",
-    "static/js/553.fce64f7a.js": "/gamemate-app/static/js/553.fce64f7a.js",
+    "static/js/553.9e6607b9.js": "/gamemate-app/static/js/553.9e6607b9.js",
     "static/media/MaterialCommunityIcons.ttf": "/gamemate-app/static/media/MaterialCommunityIcons.a7629910d13716b7080c.ttf",
     "static/media/Ionicons.ttf": "/gamemate-app/static/media/Ionicons.3517aeaa34b2f8cd8eef.ttf",
     "static/media/Entypo.ttf": "/gamemate-app/static/media/Entypo.a10f41248184205e8db8.ttf",
@@ -11,10 +11,10 @@
     "manifest.json": "/gamemate-app/manifest.json",
     "serve.json": "/gamemate-app/serve.json",
     "main.6bfb2980.js.map": "/gamemate-app/static/js/main.6bfb2980.js.map",
-    "553.fce64f7a.js.map": "/gamemate-app/static/js/553.fce64f7a.js.map"
+    "553.9e6607b9.js.map": "/gamemate-app/static/js/553.9e6607b9.js.map"
   },
   "entrypoints": [
-    "static/js/553.fce64f7a.js",
+    "static/js/553.9e6607b9.js",
     "static/js/main.6bfb2980.js"
   ]
 }

@@ -1,8 +1,8 @@
 {
-    "description": "A social gaming app that connects players around the world",
-    "display": "standalone",
-    "lang": "es",
-    "name": "Gamemate App",
-    "short_name": "Gamemate",
-    "start_url": "/?utm_source=web_app_manifest"
+  "description": "A social app that connects gamers around the world",
+  "display": "standalone",
+  "lang": "en",
+  "name": "GameMate App",
+  "short_name": "GameMate App",
+  "start_url": "/?utm_source=web_app_manifest"
 }
