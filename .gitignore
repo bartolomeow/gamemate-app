@@ -30,6 +30,7 @@ build/
 local.properties
 *.iml
 *.hprof
+.env
 
 # node.js
 #
@@ -51,5 +52,8 @@ buck-out/
 
 # Expo
 .expo/
-web-build/
 dist/
+
+#Firebase
+google-services.json
+GoogleService-Info.plist

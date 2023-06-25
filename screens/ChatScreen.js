@@ -1,11 +1,14 @@
 import React from "react";
-import { Text, View } from "react-native";
+import { SafeAreaView } from "react-native";
+import ChatList from "../components/ChatList";
+import Header from "../components/Header";
 
 const ChatScreen = () => {
     return (
-        <View>
-            <Text>ChatScreen</Text>
-        </View>
+        <SafeAreaView>
+            <Header title="Chat" callEnabled={false} />
+            <ChatList />
+        </SafeAreaView>
     );
 };
 
