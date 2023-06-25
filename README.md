@@ -23,7 +23,6 @@ yarn dev:tailwind
 And finally, to build the project you must run the following commands on your terminal.
 
 To build for web with a local server listening to changes.
-
 ```bash
 expo start
 ```
