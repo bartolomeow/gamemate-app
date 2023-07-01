@@ -12,9 +12,9 @@ const MatchScreen = () => {
         <View style={[tw("h-full bg-red-500 pt-20"), { opacity: 0.9 }]}>
             <View style={tw("justify-center px-10 pt-10")}>
                 <Image
-                    style={tw("h-20 w-full")}
+                    style={tw("h-14 w-16")}
                     source={{
-                        uri: "https://filecache.mediaroom.com/mr5mr_tinder/178157/43b-matches.png"
+                        uri: require("../assets/GameMateLogo.png")
                     }}
                 />
             </View>

@@ -3,7 +3,7 @@ import { doc, onSnapshot, serverTimestamp, setDoc } from "firebase/firestore";
 import React, { useEffect, useLayoutEffect, useState } from "react";
 import {
     ActivityIndicator,
-    Image,
+    SafeAreaView,
     Text,
     TextInput,
     TouchableOpacity,
@@ -84,66 +84,63 @@ const ModalScreen = () => {
         (gamertag || existingProps.gamertag) &&
         (favoriteGame || existingProps.favoriteGame);
     return (
-        <View style={tw("flex-1 items-center pt-2")}>
-            <Image
-                style={tw("h-20 w-full w-10 h-10")}
-                resizeMode="contain"
-                source={{
-                    uri: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/Xbox_Logo.svg/1200px-Xbox_Logo.svg.png"
-                }}
-            />
-            <Text style={tw("text-xl text-gray-500 p-2 font-semibold")}>
-                Bienvenido, {user.displayName}
-            </Text>
-            <Text style={tw("text-center p-4 font-bold text-red-400")}>
-                Paso 1: Tu foto de perfil
-            </Text>
-            <TextInput
-                value={image}
-                onChangeText={(text) => setImage(text)}
-                style={tw("text-center text-xl pb-2")}
-                placeholder="Introduce una URL"
-                maxLength={200}
-            />
-            <Text style={tw("text-center p-4 font-bold text-red-400")}>
-                Paso 2: Tu gamertag
-            </Text>
-            <TextInput
-                value={gamertag}
-                onChangeText={(gamertag) => setGamertag(gamertag)}
-                style={tw("text-center text-xl pb-2")}
-                placeholder={existingProps.gamertag || "Gamertag principal"}
-                maxLength={50}
-            />
-            <Text style={tw("text-center p-4 font-bold text-red-400")}>
-                Paso 3: Tu videojuego favorito
-            </Text>
-            <TextInput
-                value={favoriteGame}
-                onChangeText={(favoriteGame) => setFavoriteGame(favoriteGame)}
-                style={tw("text-center text-xl pb-2")}
-                placeholder={
-                    existingProps.favoriteGame || "Escribe el título o saga"
-                }
-                maxLength={200}
-            />
-            <TouchableOpacity
-                style={[
-                    tw("w-64 p-3 rounded-xl absolute bottom-10 bg-red-400"),
-                    !formChanged ? tw("bg-gray-400") : tw("bg-red-400")
-                ]}
-                disabled={!formChanged}
-                onPress={updateUserProfile}
-            >
-                <Text style={tw("text-center text-white text-xl")}>
-                    {alert ? (
-                        <ActivityIndicator size={"small"} color="#ffffff" />
-                    ) : (
-                        "Actualizar perfil"
-                    )}
+        <SafeAreaView style={tw("flex-1")}>
+            <View style={tw("flex-1 items-center pt-2")}>
+                <Text style={tw("text-xl text-gray-500 p-2 font-semibold")}>
+                    Bienvenido, {user.displayName}
                 </Text>
-            </TouchableOpacity>
-        </View>
+                <Text style={tw("text-center p-4 font-bold text-red-400")}>
+                    Paso 1: Tu foto de perfil
+                </Text>
+                <TextInput
+                    value={image}
+                    onChangeText={(text) => setImage(text)}
+                    style={tw("text-center text-xl pb-2")}
+                    placeholder="Introduce una URL"
+                    maxLength={200}
+                />
+                <Text style={tw("text-center p-4 font-bold text-red-400")}>
+                    Paso 2: Tu gamertag
+                </Text>
+                <TextInput
+                    value={gamertag}
+                    onChangeText={(gamertag) => setGamertag(gamertag)}
+                    style={tw("text-center text-xl pb-2")}
+                    placeholder={existingProps.gamertag || "Gamertag principal"}
+                    maxLength={50}
+                />
+                <Text style={tw("text-center p-4 font-bold text-red-400")}>
+                    Paso 3: Tu videojuego favorito
+                </Text>
+                <TextInput
+                    value={favoriteGame}
+                    onChangeText={(favoriteGame) =>
+                        setFavoriteGame(favoriteGame)
+                    }
+                    style={tw("text-center text-xl pb-2")}
+                    placeholder={
+                        existingProps.favoriteGame || "Escribe el título o saga"
+                    }
+                    maxLength={200}
+                />
+                <TouchableOpacity
+                    style={[
+                        tw("w-64 p-3 rounded-xl absolute bottom-10 bg-red-400"),
+                        !formChanged ? tw("bg-gray-400") : tw("bg-red-400")
+                    ]}
+                    disabled={!formChanged}
+                    onPress={updateUserProfile}
+                >
+                    <Text style={tw("text-center text-white text-xl")}>
+                        {alert ? (
+                            <ActivityIndicator size={"small"} color="#ffffff" />
+                        ) : (
+                            "Actualizar perfil"
+                        )}
+                    </Text>
+                </TouchableOpacity>
+            </View>
+        </SafeAreaView>
     );
 };
 

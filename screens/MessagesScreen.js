@@ -73,7 +73,7 @@ const MessagesScreen = () => {
                 title={
                     getMatchedUserInfo(matchDetails.users, user.uid).gamertag
                 }
-                callEnabled
+                callEnabled={false}
             />
             <KeyboardAvoidingView
                 behavior={Platform.OS === "ios" ? "padding" : "height"}
