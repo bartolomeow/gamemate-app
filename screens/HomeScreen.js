@@ -78,30 +78,6 @@ const HomeScreen = () => {
         return unsub;
     }, [db]);
 
-    // useEffect(() => {
-    //     onSnapshot(
-    //         query(
-    //             collection(db, "matches"),
-    //             where("usersMatched", "array-contains", user.uid)
-    //         ),
-    //         (snapshot) => {
-    //             snapshot.forEach((doc) => {
-    //                 const matchId = doc.id;
-    //                 const messagesRef = collection(
-    //                     db,
-    //                     "matches",
-    //                     matchId,
-    //                     "messages"
-    //                 );
-    //                 onSnapshot(messagesRef, (snapShot) => {
-    //                     if (messageNumber !== snapShot.docs.length)
-    //                         setMessageNumber(snapShot.docs.length);
-    //                 });
-    //             });
-    //         }
-    //     );
-    // }, []);
-
     useEffect(() => {
         if (profiles.length === 0) setNoMoreCards(true);
         else setNoMoreCards(false);
@@ -167,9 +143,9 @@ const HomeScreen = () => {
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => navigation.navigate("Modal")}>
                     <Image
-                        style={tw("h-14 w-14 m-1")}
+                        style={tw("h-14 w-16 m-1")}
                         source={{
-                            uri: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/Xbox_Logo.svg/1200px-Xbox_Logo.svg.png"
+                            uri: require("../assets/GameMateLogored.png")
                         }}
                     />
                 </TouchableOpacity>
@@ -289,12 +265,12 @@ const HomeScreen = () => {
                                             Juego a {card.favoriteGame}
                                         </Text>
                                     </View>
-                                    <Image
+                                    {/* <Image
                                         style={tw("h-7 w-7 my-4")}
                                         source={{
                                             uri: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/Xbox_Logo.svg/1200px-Xbox_Logo.svg.png"
                                         }}
-                                    />
+                                    /> */}
                                 </View>
                             </View>
                         )
