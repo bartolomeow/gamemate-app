@@ -1,5 +1,11 @@
 import React from "react";
-import { ImageBackground, Text, TouchableOpacity, View } from "react-native";
+import {
+    Image,
+    SafeAreaView,
+    Text,
+    TouchableOpacity,
+    View
+} from "react-native";
 import { useTailwind } from "tailwind-rn";
 import useAuth from "../hooks/useAuth";
 
@@ -8,29 +14,32 @@ const LoginScreen = () => {
     const { loading, signInWithGoogle } = useAuth();
 
     return (
-        <View style={tw("flex-1")}>
-            <ImageBackground
-                resizeMode="cover"
-                style={tw("flex-1")}
-                source={{
-                    uri: "https://wallpaperaccess.com/full/649846.jpg"
-                }}
-            ></ImageBackground>
-            <TouchableOpacity
-                style={[
-                    tw("absolute bottom-40 w-52 bg-white p-4 rounded-2xl"),
-                    { marginHorizontal: "25%" }
-                ]}
-                onPress={signInWithGoogle}
-            >
-                <Text
-                    style={tw("font-semibold text-center")}
-                    disabled={loading}
+        <SafeAreaView style={tw("flex-1")}>
+            <View style={tw("flex-1 bg-red-500 items-center")}>
+                <View style={tw("flex-1 items-center mt-20")}>
+                    <Image
+                        style={tw("h-14 w-16")}
+                        source={{ uri: require("../assets/GameMateLogo.png") }}
+                    />
+                    <Text style={tw("text-xl font-semibold text-white")}>
+                        GameMate
+                    </Text>
+                </View>
+                <TouchableOpacity
+                    style={[
+                        tw("absolute bottom-40 w-52 bg-white p-4 rounded-2xl")
+                    ]}
+                    onPress={signInWithGoogle}
                 >
-                    Sign in & get swiping
-                </Text>
-            </TouchableOpacity>
-        </View>
+                    <Text
+                        style={tw("font-semibold text-center")}
+                        disabled={loading}
+                    >
+                        Entrar con Google
+                    </Text>
+                </TouchableOpacity>
+            </View>
+        </SafeAreaView>
     );
 };
 

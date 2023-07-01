@@ -52,7 +52,10 @@ const ChatRow = ({ matchDetails }) => {
                 <Text style={tw("text-lg font-semibold")}>
                     {matchedUserInfo?.gamertag}
                 </Text>
-                <Text>{lastMessage || "Sugerencia de ChatGPT"}</Text>
+                <Text>
+                    {lastMessage ||
+                        `¡Escribe un mensaje a ${matchedUserInfo?.gamertag}!`}
+                </Text>
             </View>
         </TouchableOpacity>
     );

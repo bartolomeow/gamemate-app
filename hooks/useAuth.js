@@ -47,22 +47,25 @@ export const AuthProvider = ({ children }) => {
             .finally(() => setLoading(false));
     };
 
-    useEffect(async () => {
+    useEffect(() => {
         setLoading(true);
-        try {
-            if (response?.type === "success") {
-                const credential = await GoogleAuthProvider.credential(
-                    null,
-                    response.params.access_token
-                );
+        const responseFn = async () => {
+            try {
+                if (response?.type === "success") {
+                    const credential = await GoogleAuthProvider.credential(
+                        null,
+                        response.params.access_token
+                    );
 
-                await signInWithCredential(auth, credential);
+                    await signInWithCredential(auth, credential);
+                }
+            } catch (error) {
+                setError(error);
+            } finally {
+                () => setLoading(false);
             }
-        } catch (error) {
-            setError(error);
-        } finally {
-            () => setLoading(false);
-        }
+        };
+        responseFn();
     }, [response]);
 
     return (
